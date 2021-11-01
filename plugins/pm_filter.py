@@ -5,7 +5,7 @@ import ast
 from Script import script
 import pyrogram
 from database.connections_mdb import active_connection, all_connections, delete_connection, if_active, make_active, make_inactive
-from info import ADMINS, AUTH_CHANNEL, AUTH_USERS, CUSTOM_FILE_CAPTION, AUTH_GROUPS, P_TTTI_SHOW_OFF, IMDB, SINGLE_BUTTON
+from info import ADMINS, AUTH_CHANNEL, AUTH_USERS, CUSTOM_FILE_CAPTION, AUTH_GROUPS, P_TTTI_SHOW_OFF, IMDB, SINGLE_BUTTON, PM_NOKK_MSG, UNBLOCK_PM_MSG
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
 from pyrogram import Client, filters
 from pyrogram.errors import FloodWait, UserIsBlocked, MessageNotModified, PeerIdInvalid
@@ -348,9 +348,9 @@ async def cb_handler(client: Client, query: CallbackQuery):
                     file_id=file_id,
                     caption=f_caption
                     )
-                await query.answer('Check PM, I have sent files in pm',show_alert = True)
+                await query.answer(PM_NOKK_MSG,show_alert = True)
         except UserIsBlocked:
-            await query.answer('Unblock the bot mahn !',show_alert = True)
+            await query.answer(UNBLOCK_PM_MSG,show_alert = True)
         except PeerIdInvalid:
             await query.answer(url=f"https://t.me/{temp.U_NAME}?start={file_id}")
         except Exception as e:
