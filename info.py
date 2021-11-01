@@ -36,3 +36,7 @@ P_TTTI_SHOW_OFF = eval((environ.get('P_TTTI_SHOW_OFF', "False")))
 IMDB = eval((environ.get('IMDB', "True")))
 SINGLE_BUTTON = eval((environ.get('SINGLE_BUTTON', "False")))
 CUSTOM_FILE_CAPTION = environ.get("CUSTOM_FILE_CAPTION", None)
+
+# callback Alerts
+PM_NOKK_MSG = environ.get("PM_NOKK_MSG", "Check PM, I have sent files in pm")
+UNBLOCK_PM_MSG = environ.get("UNBLOCK_PM_MSG", "Unblock the bot mahn !")
