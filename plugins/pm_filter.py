@@ -122,16 +122,16 @@ async def next_page(bot, query):
         off_set = offset - 10
     if n_offset == 0:
         btn.append(
-            [InlineKeyboardButton("⏪ BACK", callback_data=f"next_{req}_{key}_{off_set}"), InlineKeyboardButton(f"📃 Pages {round(int(offset)/10)+1} / {round(total/10)}", callback_data="pages")]
+            [InlineKeyboardButton("⏪ 𝖡𝖺𝖼𝗄", callback_data=f"next_{req}_{key}_{off_set}"), InlineKeyboardButton(f"📃 {round(int(offset)/10)+1} / {round(total/10)}", callback_data="pages")]
         )
     elif off_set is None:
-        btn.append([InlineKeyboardButton(f"🗓 {round(int(offset)/10)+1} / {round(total/10)}", callback_data="pages"), InlineKeyboardButton("NEXT ⏩", callback_data=f"next_{req}_{key}_{n_offset}")])
+        btn.append([InlineKeyboardButton(f"🗓 {round(int(offset)/10)+1} / {round(total/10)}", callback_data="pages"), InlineKeyboardButton("𝖭𝖾𝗑𝗍 ⏩", callback_data=f"next_{req}_{key}_{n_offset}")])
     else:
         btn.append(
             [
-                InlineKeyboardButton("⏪ BACK", callback_data=f"next_{req}_{key}_{off_set}"),
+                InlineKeyboardButton("⏪ 𝖡𝖺𝖼𝗄", callback_data=f"next_{req}_{key}_{off_set}"),
                 InlineKeyboardButton(f"🗓 {round(int(offset)/10)+1} / {round(total/10)}", callback_data="pages"),
-                InlineKeyboardButton("NEXT ⏩", callback_data=f"next_{req}_{key}_{n_offset}")
+                InlineKeyboardButton("𝖭𝖾𝗑𝗍 ⏩", callback_data=f"next_{req}_{key}_{n_offset}")
             ],
         )
     try:
@@ -219,8 +219,8 @@ async def cb_handler(client: Client, query: CallbackQuery):
 
         keyboard = InlineKeyboardMarkup([
             [InlineKeyboardButton(f"{stat}", callback_data=f"{cb}:{group_id}:{title}"),
-                InlineKeyboardButton("DELETE", callback_data=f"deletecb:{group_id}")],
-            [InlineKeyboardButton("BACK", callback_data="backcb")]
+                InlineKeyboardButton("𝖣𝖾𝗅𝖾𝗍𝖾", callback_data=f"deletecb:{group_id}")],
+            [InlineKeyboardButton("𝖡𝖺𝖼𝗄", callback_data="backcb")]
         ])
 
         await query.message.edit_text(
@@ -402,14 +402,13 @@ async def cb_handler(client: Client, query: CallbackQuery):
         )
     elif query.data == "help":
         buttons = [[
-            InlineKeyboardButton('Manual Filter', callback_data='manuelfilter'),
-            InlineKeyboardButton('Auto Filter', callback_data='autofilter')
+            InlineKeyboardButton('𝖥𝗂𝗅𝗍𝖾𝗋', callback_data='manuelfilter'),
+            InlineKeyboardButton('𝖠𝗎𝗍𝗈𝖥𝗂𝗅𝗍𝖾𝗋', callback_data='autofilter'),
+            InlineKeyboardButton('𝖢𝗈𝗇𝗇𝖾𝖼𝗍𝗂𝗈𝗇', callback_data='coct')
             ],[
-            InlineKeyboardButton('Connection', callback_data='coct'),
-            InlineKeyboardButton('Extra Mods', callback_data='extra')
-            ],[
-            InlineKeyboardButton('🏠 Home', callback_data='start'),
-            InlineKeyboardButton('🔮 Status', callback_data='stats')
+            InlineKeyboardButton('𝖬𝗂𝗌𝖼', callback_data='extra')
+            InlineKeyboardButton('𝖧𝗈𝗆𝖾', callback_data='start'),
+            InlineKeyboardButton('𝖲𝗍𝖺𝗍𝗎𝗌', callback_data='stats')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(
@@ -419,11 +418,9 @@ async def cb_handler(client: Client, query: CallbackQuery):
         )
     elif query.data == "about":
         buttons= [[
-            InlineKeyboardButton('🤖 Updates', url='https://t.me/EvaMariaUpdates'),
-            InlineKeyboardButton('♥️ Source', callback_data='source')
-            ],[
-            InlineKeyboardButton('🏠 Home', callback_data='start'),
-            InlineKeyboardButton('🔐 Close', callback_data='close_data')
+            InlineKeyboardButton('𝖲𝗈𝗎𝗋𝖼𝖾', url='https://github.com/shamilhabeebnelli/source-code'),
+            InlineKeyboardButton('𝖬𝗈𝗏𝗂𝖾𝗌', url='t.me/mwkott'),
+            InlineKeyboardButton('𝖢𝗅𝗈𝗌𝖾', callback_data='close_data')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(
@@ -443,8 +440,8 @@ async def cb_handler(client: Client, query: CallbackQuery):
         )
     elif query.data == "manuelfilter":
         buttons = [[
-            InlineKeyboardButton('👩‍🦯 Back', callback_data='help'),
-            InlineKeyboardButton('⏹️ Buttons', callback_data='button')
+            InlineKeyboardButton('𝖡𝖺𝖼𝗄', callback_data='help'),
+            InlineKeyboardButton('𝖥𝗈𝗋𝗆𝖺𝗍𝗍𝗂𝗇𝗀', callback_data='button')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(
@@ -454,7 +451,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         )
     elif query.data == "button":
         buttons = [[
-            InlineKeyboardButton('👩‍🦯 Back', callback_data='manuelfilter')
+            InlineKeyboardButton('𝖡𝖺𝖼𝗄', callback_data='manuelfilter')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(
@@ -464,7 +461,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         )
     elif query.data == "autofilter":
         buttons = [[
-            InlineKeyboardButton('👩‍🦯 Back', callback_data='help')
+            InlineKeyboardButton('𝖡𝖺𝖼𝗄', callback_data='help')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(
@@ -474,7 +471,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         )
     elif query.data == "coct":
         buttons = [[
-            InlineKeyboardButton('👩‍🦯 Back', callback_data='help')
+            InlineKeyboardButton('𝖡𝖺𝖼𝗄', callback_data='help')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(
@@ -484,8 +481,8 @@ async def cb_handler(client: Client, query: CallbackQuery):
         )
     elif query.data == "extra":
         buttons = [[
-            InlineKeyboardButton('👩‍🦯 Back', callback_data='help'),
-            InlineKeyboardButton('👮‍♂️ Admin', callback_data='admin')
+            InlineKeyboardButton('𝖡𝖺𝖼𝗄', callback_data='help'),
+            InlineKeyboardButton('𝖧𝗈𝗆𝖾', callback_data='start')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(
@@ -495,7 +492,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         )
     elif query.data == "admin":
         buttons = [[
-            InlineKeyboardButton('👩‍🦯 Back', callback_data='extra')
+            InlineKeyboardButton('𝖡𝖺𝖼𝗄', callback_data='extra')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(
@@ -505,8 +502,8 @@ async def cb_handler(client: Client, query: CallbackQuery):
         )
     elif query.data == "stats":
         buttons = [[
-            InlineKeyboardButton('👩‍🦯 Back', callback_data='help'),
-            InlineKeyboardButton('♻️', callback_data='rfrsh')
+            InlineKeyboardButton('𝖡𝖺𝖼𝗄', callback_data='help'),
+            InlineKeyboardButton('♻️ 𝖱𝖾𝖿𝗋𝖾𝗌𝗁', callback_data='rfrsh')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         total = await Media.count_documents()
@@ -524,8 +521,8 @@ async def cb_handler(client: Client, query: CallbackQuery):
     elif query.data == "rfrsh":
         await query.answer("Fetching MongoDb DataBase")
         buttons = [[
-            InlineKeyboardButton('👩‍🦯 Back', callback_data='help'),
-            InlineKeyboardButton('♻️', callback_data='rfrsh')
+            InlineKeyboardButton('𝖡𝖺𝖼𝗄', callback_data='help'),
+            InlineKeyboardButton('♻ 𝖱𝖾𝖿𝗋𝖾𝗌𝗁️', callback_data='rfrsh')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         total = await Media.count_documents()
@@ -580,7 +577,7 @@ async def auto_filter(client, message):
             BUTTONS[key] = search
             req = message.from_user.id if message.from_user else 0
             btn.append(
-                [InlineKeyboardButton(text=f"🗓 1/{round(int(total_results)/10)}",callback_data="pages"), InlineKeyboardButton(text="NEXT ⏩",callback_data=f"next_{req}_{key}_{offset}")]
+                [InlineKeyboardButton(text=f"🗓 1/{round(int(total_results)/10)}",callback_data="pages"), InlineKeyboardButton(text="𝖭𝖾𝗑𝗍 ⏩",callback_data=f"next_{req}_{key}_{offset}")]
             )
         else:
             btn.append(
@@ -589,16 +586,16 @@ async def auto_filter(client, message):
         imdb = await get_poster(search) if IMDB else None
         if imdb and imdb.get('poster'):
             try:
-                await message.reply_photo(photo=imdb.get('poster'), caption=f"<b>Query: {search}</b> \n‌‌‌‌IMDb Data:\n\n🏷 Title: <a href={imdb['url']}>{imdb.get('title')}</a>\n🎭 Genres: {imdb.get('genres')}\n📆 Year: <a href={imdb['url']}/releaseinfo>{imdb.get('year')}</a>\n🌟 Rating: <a href={imdb['url']}/ratings>{imdb.get('rating')}</a> / 10", reply_markup=InlineKeyboardMarkup(btn))
+                await message.reply_photo(photo=imdb.get('poster'), caption=f"<b>🎞 𝖳𝗂𝗍𝗅𝖾: <a href={imdb['url']}>{imdb.get('title')}</b> {imdb.get('years')}</a>\n<i>Also Known As: {imdb.get('akas')}</i>\n<b>📆 𝖱𝖾𝗅𝖾𝖺𝗌𝖾:</b> <a href={imdb['url']}/releaseinfo>{imdb.get('year')}</a>\n<b>⏱ 𝖱𝗎𝗇𝗍𝗂𝗆𝖾:</b> {imdb.get('runtimes')} min\n<b>🎭 𝖦𝖾𝗇𝗋𝖾𝗌:</b> {imdb.get('genres')}\n<b>🌟 𝖱𝖺𝗍𝗂𝗇𝗀𝗌: <a href={imdb['url']}\nratings>{imdb.get('rating')}/10</a></b>\n<b>🗳 𝖵𝗈𝗍𝖾𝗌:</b> {imdb.get('votes')}\n<b>🎙️ 𝖫𝖺𝗇𝗀𝗎𝖺𝗀𝖾𝗌:</b> {imdb.get('language')}\n<b>🏷️ 𝖢𝖾𝗋𝗍𝗂𝖿𝗂𝖼𝖺𝗍𝖾𝗌:</b> {imdb.get('certificate')}\n<b>✍️ 𝖣𝗂𝗋𝖾𝖼𝗍𝗈𝗋:</b> <a href={imdb['url']}/fullcredits/director>{imdb.get('director')}</a>\n<b>💲 𝖯𝗋𝗈𝖽𝗎𝖼𝗍𝗂𝗈𝗇:</b> <a href={imdb['url']}/fullcredits/production_designer>{imdb.get('producer')}</a>\n<b>🔰 𝖢𝖺𝗌𝗍:</b> <a href={imdb['url']}/fullcredits/cast>{imdb.get('cast')}</a>\n<b>🌎 𝖢𝗈𝗎𝗇𝗍𝗋𝗒 𝗈𝖿 𝗈𝗋𝗂𝗀𝗂𝗇:</b> {imdb.get('country')}\n\n<b>👥 𝖦𝗋𝗈𝗎𝗉:</b> {message.chat.title}", reply_markup=InlineKeyboardMarkup(btn))
             except (MediaEmpty, PhotoInvalidDimensions, WebpageMediaEmpty):
                 pic = imdb.get('poster')
                 poster = pic.replace('.jpg', "._V1_UX360.jpg")
-                await message.reply_photo(photo=poster, caption=f"<b>Query: {search}</b> \n‌‌‌‌IMDb Data:\n\n🏷 Title: <a href={imdb['url']}>{imdb.get('title')}</a>\n🎭 Genres: {imdb.get('genres')}\n📆 Year: <a href={imdb['url']}/releaseinfo>{imdb.get('year')}</a>\n🌟 Rating: <a href={imdb['url']}/ratings>{imdb.get('rating')}</a> / 10", reply_markup=InlineKeyboardMarkup(btn))
+                await message.reply_photo(photo=poster, caption=f"<b>🎞 𝖳𝗂𝗍𝗅𝖾: <a href={imdb['url']}>{imdb.get('title')}</b> {imdb.get('years')}</a>\n<i>Also Known As: {imdb.get('akas')}</i>\n<b>📆 𝖱𝖾𝗅𝖾𝖺𝗌𝖾:</b> <a href={imdb['url']}/releaseinfo>{imdb.get('year')}</a>\n<b>⏱ 𝖱𝗎𝗇𝗍𝗂𝗆𝖾:</b> {imdb.get('runtimes')} min\n<b>🎭 𝖦𝖾𝗇𝗋𝖾𝗌:</b> {imdb.get('genres')}\n<b>🌟 𝖱𝖺𝗍𝗂𝗇𝗀𝗌: <a href={imdb['url']}\nratings>{imdb.get('rating')}/10</a></b>\n<b>🗳 𝖵𝗈𝗍𝖾𝗌:</b> {imdb.get('votes')}\n<b>🎙️ 𝖫𝖺𝗇𝗀𝗎𝖺𝗀𝖾𝗌:</b> {imdb.get('language')}\n<b>🏷️ 𝖢𝖾𝗋𝗍𝗂𝖿𝗂𝖼𝖺𝗍𝖾𝗌:</b> {imdb.get('certificate')}\n<b>✍️ 𝖣𝗂𝗋𝖾𝖼𝗍𝗈𝗋:</b> <a href={imdb['url']}/fullcredits/director>{imdb.get('director')}</a>\n<b>💲 𝖯𝗋𝗈𝖽𝗎𝖼𝗍𝗂𝗈𝗇:</b> <a href={imdb['url']}/fullcredits/production_designer>{imdb.get('producer')}</a>\n<b>🔰 𝖢𝖺𝗌𝗍:</b> <a href={imdb['url']}/fullcredits/cast>{imdb.get('cast')}</a>\n<b>🌎 𝖢𝗈𝗎𝗇𝗍𝗋𝗒 𝗈𝖿 𝗈𝗋𝗂𝗀𝗂𝗇:</b> {imdb.get('country')}\n\n<b>👥 𝖦𝗋𝗈𝗎𝗉:</b> {message.chat.title}", reply_markup=InlineKeyboardMarkup(btn))
             except Exception as e:
                 print(e)
-                await message.reply_text(f"<b>Query: {search}</b> \n‌‌‌‌IMDb Data:\n\n🏷 Title: <a href={imdb['url']}>{imdb.get('title')}</a>\n🎭 Genres: {imdb.get('genres')}\n📆 Year: <a href={imdb['url']}/releaseinfo>{imdb.get('year')}</a>\n🌟 Rating: <a href={imdb['url']}/ratings>{imdb.get('rating')}</a> / 10", reply_markup=InlineKeyboardMarkup(btn))
+                await message.reply_text(f"<b>🎞 𝖳𝗂𝗍𝗅𝖾: <a href={imdb['url']}>{imdb.get('title')}</b> {imdb.get('years')}</a>\n<i>Also Known As: {imdb.get('akas')}</i>\n<b>📆 𝖱𝖾𝗅𝖾𝖺𝗌𝖾:</b> <a href={imdb['url']}/releaseinfo>{imdb.get('year')}</a>\n<b>⏱ 𝖱𝗎𝗇𝗍𝗂𝗆𝖾:</b> {imdb.get('runtimes')} min\n<b>🎭 𝖦𝖾𝗇𝗋𝖾𝗌:</b> {imdb.get('genres')}\n<b>🌟 𝖱𝖺𝗍𝗂𝗇𝗀𝗌: <a href={imdb['url']}\nratings>{imdb.get('rating')}/10</a></b>\n<b>🗳 𝖵𝗈𝗍𝖾𝗌:</b> {imdb.get('votes')}\n<b>🎙️ 𝖫𝖺𝗇𝗀𝗎𝖺𝗀𝖾𝗌:</b> {imdb.get('language')}\n<b>🏷️ 𝖢𝖾𝗋𝗍𝗂𝖿𝗂𝖼𝖺𝗍𝖾𝗌:</b> {imdb.get('certificate')}\n<b>✍️ 𝖣𝗂𝗋𝖾𝖼𝗍𝗈𝗋:</b> <a href={imdb['url']}/fullcredits/director>{imdb.get('director')}</a>\n<b>💲 𝖯𝗋𝗈𝖽𝗎𝖼𝗍𝗂𝗈𝗇:</b> <a href={imdb['url']}/fullcredits/production_designer>{imdb.get('producer')}</a>\n<b>🔰 𝖢𝖺𝗌𝗍:</b> <a href={imdb['url']}/fullcredits/cast>{imdb.get('cast')}</a>\n<b>🌎 𝖢𝗈𝗎𝗇𝗍𝗋𝗒 𝗈𝖿 𝗈𝗋𝗂𝗀𝗂𝗇:</b> {imdb.get('country')}\n\n<b>👥 𝖦𝗋𝗈𝗎𝗉:</b> {message.chat.title}", reply_markup=InlineKeyboardMarkup(btn))
         elif imdb:
-            await message.reply_text(f"<b>Query: {search}</b> \n‌‌‌‌IMDb Data:\n\n🏷 Title: <a href={imdb['url']}>{imdb.get('title')}</a>\n🎭 Genres: {imdb.get('genres')}\n📆 Year: <a href={imdb['url']}/releaseinfo>{imdb.get('year')}</a>\n🌟 Rating: <a href={imdb['url']}/ratings>{imdb.get('rating')}</a> / 10", reply_markup=InlineKeyboardMarkup(btn))
+            await message.reply_text(f"<b>🎞 𝖳𝗂𝗍𝗅𝖾: <a href={imdb['url']}>{imdb.get('title')}</b> {imdb.get('years')}</a>\n<i>Also Known As: {imdb.get('akas')}</i>\n<b>📆 𝖱𝖾𝗅𝖾𝖺𝗌𝖾:</b> <a href={imdb['url']}/releaseinfo>{imdb.get('year')}</a>\n<b>⏱ 𝖱𝗎𝗇𝗍𝗂𝗆𝖾:</b> {imdb.get('runtimes')} min\n<b>🎭 𝖦𝖾𝗇𝗋𝖾𝗌:</b> {imdb.get('genres')}\n<b>🌟 𝖱𝖺𝗍𝗂𝗇𝗀𝗌: <a href={imdb['url']}\nratings>{imdb.get('rating')}/10</a></b>\n<b>🗳 𝖵𝗈𝗍𝖾𝗌:</b> {imdb.get('votes')}\n<b>🎙️ 𝖫𝖺𝗇𝗀𝗎𝖺𝗀𝖾𝗌:</b> {imdb.get('language')}\n<b>🏷️ 𝖢𝖾𝗋𝗍𝗂𝖿𝗂𝖼𝖺𝗍𝖾𝗌:</b> {imdb.get('certificate')}\n<b>✍️ 𝖣𝗂𝗋𝖾𝖼𝗍𝗈𝗋:</b> <a href={imdb['url']}/fullcredits/director>{imdb.get('director')}</a>\n<b>💲 𝖯𝗋𝗈𝖽𝗎𝖼𝗍𝗂𝗈𝗇:</b> <a href={imdb['url']}/fullcredits/production_designer>{imdb.get('producer')}</a>\n<b>🔰 𝖢𝖺𝗌𝗍:</b> <a href={imdb['url']}/fullcredits/cast>{imdb.get('cast')}</a>\n<b>🌎 𝖢𝗈𝗎𝗇𝗍𝗋𝗒 𝗈𝖿 𝗈𝗋𝗂𝗀𝗂𝗇:</b> {imdb.get('country')}\n\n<b>👥 𝖦𝗋𝗈𝗎𝗉:</b> {message.chat.title}", reply_markup=InlineKeyboardMarkup(btn))
         else:
-            await message.reply_text(f"<b>Here is What I Found In My Database For Your Query {search} ‌‌‌‌‎ </b>", reply_markup=InlineKeyboardMarkup(btn))
+            await message.reply_text(f"<b>🎞 𝖳𝗂𝗍𝗅𝖾: <a href={imdb['url']}>{imdb.get('title')}</b> {imdb.get('years')}</a>\n<i>Also Known As: {imdb.get('akas')}</i>\n<b>📆 𝖱𝖾𝗅𝖾𝖺𝗌𝖾:</b> <a href={imdb['url']}/releaseinfo>{imdb.get('year')}</a>\n<b>⏱ 𝖱𝗎𝗇𝗍𝗂𝗆𝖾:</b> {imdb.get('runtimes')} min\n<b>🎭 𝖦𝖾𝗇𝗋𝖾𝗌:</b> {imdb.get('genres')}\n<b>🌟 𝖱𝖺𝗍𝗂𝗇𝗀𝗌: <a href={imdb['url']}\nratings>{imdb.get('rating')}/10</a></b>\n<b>🗳 𝖵𝗈𝗍𝖾𝗌:</b> {imdb.get('votes')}\n<b>🎙️ 𝖫𝖺𝗇𝗀𝗎𝖺𝗀𝖾𝗌:</b> {imdb.get('language')}\n<b>🏷️ 𝖢𝖾𝗋𝗍𝗂𝖿𝗂𝖼𝖺𝗍𝖾𝗌:</b> {imdb.get('certificate')}\n<b>✍️ 𝖣𝗂𝗋𝖾𝖼𝗍𝗈𝗋:</b> <a href={imdb['url']}/fullcredits/director>{imdb.get('director')}</a>\n<b>💲 𝖯𝗋𝗈𝖽𝗎𝖼𝗍𝗂𝗈𝗇:</b> <a href={imdb['url']}/fullcredits/production_designer>{imdb.get('producer')}</a>\n<b>🔰 𝖢𝖺𝗌𝗍:</b> <a href={imdb['url']}/fullcredits/cast>{imdb.get('cast')}</a>\n<b>🌎 𝖢𝗈𝗎𝗇𝗍𝗋𝗒 𝗈𝖿 𝗈𝗋𝗂𝗀𝗂𝗇:</b> {imdb.get('country')}\n\n<b>👥 𝖦𝗋𝗈𝗎𝗉:</b> {message.chat.title}", reply_markup=InlineKeyboardMarkup(btn))
         
