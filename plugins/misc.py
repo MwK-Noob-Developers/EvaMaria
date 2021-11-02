@@ -3,7 +3,7 @@ from pyrogram import Client, filters
 from pyrogram.errors.exceptions.bad_request_400 import UserNotParticipant, MediaEmpty, PhotoInvalidDimensions, WebpageMediaEmpty
 
 from utils import extract_user, get_file_id, get_poster, last_online
-import time
+import time 
 from datetime import datetime
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
 
@@ -17,27 +17,27 @@ async def showid(client, message):
         username = message.from_user.username
         dc_id = message.from_user.dc_id or ""
         await message.reply_text(
-            f"<b>➲ First Name:</b> {first}\n<b>➲ Last Name:</b> {last}\n<b>➲ Username:</b> {username}\n<b>➲ Telegram ID:</b> <code>{user_id}</code>\n<b>➲ Data Centre:</b> <code>{dc_id}</code>",
+            f"<b>• First Name:</b> {first}\n<b>• Last Name:</b> {last}\n<b>• Username:</b> {username}\n<b>• Telegram ID:</b> <code>{user_id}</code>\n<b>• Data Centre:</b> <code>{dc_id}</code>",
             quote=True
         )
 
     elif chat_type in ["group", "supergroup"]:
         _id = ""
         _id += (
-            "<b>➲ Chat ID</b>: "
+            "<b>• Chat ID</b>: "
             f"<code>{message.chat.id}</code>\n"
         )
         if message.reply_to_message:
             _id += (
-                "<b>➲ User ID</b>: "
+                "<b>• User ID</b>: "
                 f"<code>{message.from_user.id if message.from_user else 'Anonymous'}</code>\n"
-                "<b>➲ Replied User ID</b>: "
+                "<b>• Replied User ID</b>: "
                 f"<code>{message.reply_to_message.from_user.id if message.reply_to_message.from_user else 'Anonymous'}</code>\n"
             )
             file_info = get_file_id(message.reply_to_message)
         else:
             _id += (
-                "<b>➲ User ID</b>: "
+                "<b>• User ID</b>: "
                 f"<code>{message.from_user.id if message.from_user else 'Anonymous'}</code>\n"
             )
             file_info = get_file_id(message)
@@ -51,7 +51,7 @@ async def showid(client, message):
             quote=True
         )
 
-@Client.on_message(filters.command(["info"]))
+@Client.on_message(filters.command(["info", "whois"]))
 async def who_is(client, message):
     # https://github.com/SpEcHiDe/PyroGramBot/blob/master/pyrobot/plugins/admemes/whois.py#L19
     status_message = await message.reply_text(
@@ -70,15 +70,15 @@ async def who_is(client, message):
     if from_user is None:
         return await status_message.edit("no valid user_id / message specified")
     message_out_str = ""
-    message_out_str += f"<b>➲First Name:</b> {from_user.first_name}\n"
+    message_out_str += f"<b>• First Name:</b> {from_user.first_name}\n"
     last_name = from_user.last_name or "<b>None</b>"
-    message_out_str += f"<b>➲Last Name:</b> {last_name}\n"
-    message_out_str += f"<b>➲Telegram ID:</b> <code>{from_user.id}</code>\n"
+    message_out_str += f"<b>• Last Name:</b> {last_name}\n"
+    message_out_str += f"<b>• Telegram ID:</b> <code>{from_user.id}</code>\n"
     username = from_user.username or "<b>None</b>"
     dc_id = from_user.dc_id or "[User Doesnt Have A Valid DP]"
-    message_out_str += f"<b>➲Data Centre:</b> <code>{dc_id}</code>\n"
-    message_out_str += f"<b>➲User Name:</b> @{username}\n"
-    message_out_str += f"<b>➲User 𝖫𝗂𝗇𝗄:</b> <a href='tg://user?id={from_user.id}'><b>Click Here</b></a>\n"
+    message_out_str += f"<b>• Data Centre:</b> <code>{dc_id}</code>\n"
+    message_out_str += f"<b>• User Name:</b> @{username}\n"
+    message_out_str += f"<b>• User 𝖫𝗂𝗇𝗄:</b> <a href='tg://user?id={from_user.id}'><b>Click Here</b></a>\n"
     if message.chat.type in (("supergroup", "channel")):
         try:
             chat_member_p = await message.chat.get_member(from_user.id)
@@ -86,7 +86,7 @@ async def who_is(client, message):
                 chat_member_p.joined_date or time.time()
             ).strftime("%Y.%m.%d %H:%M:%S")
             message_out_str += (
-                "<b>➲Joined this Chat on:</b> <code>"
+                "<b>• Joined this Chat on:</b> <code>"
                 f"{joined_date}"
                 "</code>\n"
             )
@@ -98,7 +98,7 @@ async def who_is(client, message):
             message=chat_photo.big_file_id
         )
         buttons = [[
-            InlineKeyboardButton('🔐 Close', callback_data='close_data')
+            InlineKeyboardButton('Close', callback_data='close_data')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await message.reply_photo(
@@ -112,7 +112,7 @@ async def who_is(client, message):
         os.remove(local_user_photo)
     else:
         buttons = [[
-            InlineKeyboardButton('🔐 Close', callback_data='close_data')
+            InlineKeyboardButton('Close', callback_data='close_data')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await message.reply_text(
@@ -127,7 +127,7 @@ async def who_is(client, message):
 @Client.on_message(filters.command(["imdb", 'search']))
 async def imdb_search(client, message):
     if ' ' in message.text:
-        k = await message.reply('Searching ImDB')
+        k = await message.reply('🤔🧐🙄')
         r, title = message.text.split(None, 1)
         movies = await get_poster(title, bulk=True)
         if not movies:
@@ -152,25 +152,24 @@ async def imdb_callback(bot: Client, query: CallbackQuery):
     btn = [
             [
                 InlineKeyboardButton(
-                    text=f"{imdb.get('title')}",
+                    text=f"▶️ Open IMDb",
                     url=imdb['url'],
                 )
             ]
         ]
     if imdb.get('poster'):
         try:
-            await query.message.reply_photo(photo=imdb['poster'], caption=f"IMDb Data:\n\n🏷 Title:<a href={imdb['url']}>{imdb.get('title')}</a>\n🎭 Genres: {imdb.get('genres')}\n📆 Year:<a href={imdb['url']}/releaseinfo>{imdb.get('year')}</a>\n🌟 Rating: <a href={imdb['url']}/ratings>{imdb.get('rating')}</a> / 10\n🖋 StoryLine: <code>{imdb.get('plot')} </code>", reply_markup=InlineKeyboardMarkup(btn))
+            await query.message.reply_text(f"<b>𝖳𝗂𝗍𝗅𝖾: <a href={imdb['url']}>{imdb.get('title')}</b> {imdb.get('years')}</a>\n<i>Also Known As: {imdb.get('akas')}</i>\n<b>𝖱𝖾𝗅𝖾𝖺𝗌𝖾:</b> <a href={imdb['url']}/releaseinfo>{imdb.get('year')}</a>\n<b>𝖱𝗎𝗇𝗍𝗂𝗆𝖾:</b> {imdb.get('runtimes')} min\n<b>𝖦𝖾𝗇𝗋𝖾𝗌:</b> {imdb.get('genres')}\n<b>𝖱𝖺𝗍𝗂𝗇𝗀𝗌: <a href={imdb['url']}\nratings>{imdb.get('rating')}/10</a></b>\n<b>𝖵𝗈𝗍𝖾𝗌:</b> {imdb.get('votes')}\n<b>𝖫𝖺𝗇𝗀𝗎𝖺𝗀𝖾𝗌:</b> {imdb.get('language')}\n<b>𝖢𝖾𝗋𝗍𝗂𝖿𝗂𝖼𝖺𝗍𝖾𝗌:</b> {imdb.get('certificate')}\n<b>𝖣𝗂𝗋𝖾𝖼𝗍𝗈𝗋:</b> <a href={imdb['url']}/fullcredits/director>{imdb.get('director')}</a>\n<b>𝖯𝗋𝗈𝖽𝗎𝖼𝗍𝗂𝗈𝗇:</b> <a href={imdb['url']}/fullcredits/production_designer>{imdb.get('producer')}</a>\n<b>𝖢𝖺𝗌𝗍:</b> <a href={imdb['url']}/fullcredits/cast>{imdb.get('cast')}</a>\n<b>𝖢𝗈𝗎𝗇𝗍𝗋𝗒 𝗈𝖿 𝗈𝗋𝗂𝗀𝗂𝗇:</b> {imdb.get('country')}\n<b>ScreenPlay:</b> <code>{imdb.get('plot')}</code>", reply_markup=InlineKeyboardMarkup(btn))
         except (MediaEmpty, PhotoInvalidDimensions, WebpageMediaEmpty):
             pic = imdb.get('poster')
             poster = pic.replace('.jpg', "._V1_UX360.jpg")
-            await query.message.reply_photo(photo=imdb['poster'], caption=f"IMDb Data:\n\n🏷 Title:<a href={imdb['url']}>{imdb.get('title')}</a>\n🎭 Genres: {imdb.get('genres')}\n📆 Year:<a href={imdb['url']}/releaseinfo>{imdb.get('year')}</a>\n🌟 Rating: <a href={imdb['url']}/ratings>{imdb.get('rating')}</a> / 10\n🖋 StoryLine: <code>{imdb.get('plot')} </code>", reply_markup=InlineKeyboardMarkup(btn))
+            await query.message.reply_text(f"<b>𝖳𝗂𝗍𝗅𝖾: <a href={imdb['url']}>{imdb.get('title')}</b> {imdb.get('years')}</a>\n<i>Also Known As: {imdb.get('akas')}</i>\n<b>𝖱𝖾𝗅𝖾𝖺𝗌𝖾:</b> <a href={imdb['url']}/releaseinfo>{imdb.get('year')}</a>\n<b>𝖱𝗎𝗇𝗍𝗂𝗆𝖾:</b> {imdb.get('runtimes')} min\n<b>𝖦𝖾𝗇𝗋𝖾𝗌:</b> {imdb.get('genres')}\n<b>𝖱𝖺𝗍𝗂𝗇𝗀𝗌: <a href={imdb['url']}\nratings>{imdb.get('rating')}/10</a></b>\n<b>𝖵𝗈𝗍𝖾𝗌:</b> {imdb.get('votes')}\n<b>𝖫𝖺𝗇𝗀𝗎𝖺𝗀𝖾𝗌:</b> {imdb.get('language')}\n<b>𝖢𝖾𝗋𝗍𝗂𝖿𝗂𝖼𝖺𝗍𝖾𝗌:</b> {imdb.get('certificate')}\n<b>𝖣𝗂𝗋𝖾𝖼𝗍𝗈𝗋:</b> <a href={imdb['url']}/fullcredits/director>{imdb.get('director')}</a>\n<b>𝖯𝗋𝗈𝖽𝗎𝖼𝗍𝗂𝗈𝗇:</b> <a href={imdb['url']}/fullcredits/production_designer>{imdb.get('producer')}</a>\n<b>𝖢𝖺𝗌𝗍:</b> <a href={imdb['url']}/fullcredits/cast>{imdb.get('cast')}</a>\n<b>𝖢𝗈𝗎𝗇𝗍𝗋𝗒 𝗈𝖿 𝗈𝗋𝗂𝗀𝗂𝗇:</b> {imdb.get('country')}\n<b>ScreenPlay:</b> <code>{imdb.get('plot')}</code>", reply_markup=InlineKeyboardMarkup(btn))
         except Exception as e:
             print(e)
-            await query.message.reply(f"IMDb Data:\n\n🏷 Title:<a href={imdb['url']}>{imdb.get('title')}</a>\n🎭 Genres: {imdb.get('genres')}\n📆 Year:<a href={imdb['url']}/releaseinfo>{imdb.get('year')}</a>\n🌟 Rating: <a href={imdb['url']}/ratings>{imdb.get('rating')}</a> / 10\n🖋 StoryLine: <code>{imdb.get('plot')} </code>", reply_markup=InlineKeyboardMarkup(btn), disable_web_page_preview=False)
+            await query.message.reply(f"<b>𝖳𝗂𝗍𝗅𝖾: <a href={imdb['url']}>{imdb.get('title')}</b> {imdb.get('years')}</a>\n<i>Also Known As: {imdb.get('akas')}</i>\n<b>𝖱𝖾𝗅𝖾𝖺𝗌𝖾:</b> <a href={imdb['url']}/releaseinfo>{imdb.get('year')}</a>\n<b>𝖱𝗎𝗇𝗍𝗂𝗆𝖾:</b> {imdb.get('runtimes')} min\n<b>𝖦𝖾𝗇𝗋𝖾𝗌:</b> {imdb.get('genres')}\n<b>𝖱𝖺𝗍𝗂𝗇𝗀𝗌: <a href={imdb['url']}\nratings>{imdb.get('rating')}/10</a></b>\n<b>𝖵𝗈𝗍𝖾𝗌:</b> {imdb.get('votes')}\n<b>𝖫𝖺𝗇𝗀𝗎𝖺𝗀𝖾𝗌:</b> {imdb.get('language')}\n<b>𝖢𝖾𝗋𝗍𝗂𝖿𝗂𝖼𝖺𝗍𝖾𝗌:</b> {imdb.get('certificate')}\n<b>𝖣𝗂𝗋𝖾𝖼𝗍𝗈𝗋:</b> <a href={imdb['url']}/fullcredits/director>{imdb.get('director')}</a>\n<b>𝖯𝗋𝗈𝖽𝗎𝖼𝗍𝗂𝗈𝗇:</b> <a href={imdb['url']}/fullcredits/production_designer>{imdb.get('producer')}</a>\n<b>𝖢𝖺𝗌𝗍:</b> <a href={imdb['url']}/fullcredits/cast>{imdb.get('cast')}</a>\n<b>𝖢𝗈𝗎𝗇𝗍𝗋𝗒 𝗈𝖿 𝗈𝗋𝗂𝗀𝗂𝗇:</b> {imdb.get('country')}\n<b>ScreenPlay:</b> <code>{imdb.get('plot')}</code>", reply_markup=InlineKeyboardMarkup(btn), disable_web_page_preview=False)
         await query.message.delete()
     else:
-        await query.message.edit(f"IMDb Data:\n\n🏷 Title:<a href={imdb['url']}>{imdb.get('title')}</a>\n🎭 Genres: {imdb.get('genres')}\n📆 Year:<a href={imdb['url']}/releaseinfo>{imdb.get('year')}</a>\n🌟 Rating: <a href={imdb['url']}/ratings>{imdb.get('rating')}</a> / 10\n🖋 StoryLine: <code>{imdb.get('plot')} </code>", reply_markup=InlineKeyboardMarkup(btn), disable_web_page_preview=False)
+        await query.message.edit(f"<b>𝖳𝗂𝗍𝗅𝖾: <a href={imdb['url']}>{imdb.get('title')}</b> {imdb.get('years')}</a>\n<i>Also Known As: {imdb.get('akas')}</i>\n<b>𝖱𝖾𝗅𝖾𝖺𝗌𝖾:</b> <a href={imdb['url']}/releaseinfo>{imdb.get('year')}</a>\n<b>𝖱𝗎𝗇𝗍𝗂𝗆𝖾:</b> {imdb.get('runtimes')} min\n<b>𝖦𝖾𝗇𝗋𝖾𝗌:</b> {imdb.get('genres')}\n<b>𝖱𝖺𝗍𝗂𝗇𝗀𝗌: <a href={imdb['url']}\nratings>{imdb.get('rating')}/10</a></b>\n<b>𝖵𝗈𝗍𝖾𝗌:</b> {imdb.get('votes')}\n<b>𝖫𝖺𝗇𝗀𝗎𝖺𝗀𝖾𝗌:</b> {imdb.get('language')}\n<b>𝖢𝖾𝗋𝗍𝗂𝖿𝗂𝖼𝖺𝗍𝖾𝗌:</b> {imdb.get('certificate')}\n<b>𝖣𝗂𝗋𝖾𝖼𝗍𝗈𝗋:</b> <a href={imdb['url']}/fullcredits/director>{imdb.get('director')}</a>\n<b>𝖯𝗋𝗈𝖽𝗎𝖼𝗍𝗂𝗈𝗇:</b> <a href={imdb['url']}/fullcredits/production_designer>{imdb.get('producer')}</a>\n<b>𝖢𝖺𝗌𝗍:</b> <a href={imdb['url']}/fullcredits/cast>{imdb.get('cast')}</a>\n<b>𝖢𝗈𝗎𝗇𝗍𝗋𝗒 𝗈𝖿 𝗈𝗋𝗂𝗀𝗂𝗇:</b> {imdb.get('country')}\n<b>ScreenPlay:</b> <code>{imdb.get('plot')}</code>", reply_markup=InlineKeyboardMarkup(btn), disable_web_page_preview=False)
     await query.answer()
         
-
-        
+ 
