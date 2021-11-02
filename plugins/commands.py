@@ -87,7 +87,35 @@ async def start(client, message):
         file_id=file_id,
         caption=f"<b>📝 File Name:</b> [mwkOTT].{files.file_name}\n\n🧲 <b>File Size:</b> {size}",
         )
-                    
+                   
+@Client.on_message(filters.command(["help"]))
+async def help_msg(client, message):
+    await message.reply_photo(photo=random.choice(PICS),
+            text=script.HELP_TXT,
+            reply_markup=InlineKeyboardMarkup(
+            [[
+              InlineKeyboardButton('𝖥𝗂𝗅𝗍𝖾𝗋', callback_data='manuelfilter'),
+            InlineKeyboardButton('𝖠𝗎𝗍𝗈𝖥𝗂𝗅𝗍𝖾𝗋', callback_data='autofilter'),
+            InlineKeyboardButton('𝖢𝗈𝗇𝗇𝖾𝖼𝗍𝗂𝗈𝗇', callback_data='coct')
+            ],[
+            InlineKeyboardButton('𝖬𝗂𝗌𝖼', callback_data='extra')
+            InlineKeyboardButton('𝖧𝗈𝗆𝖾', callback_data='start'),
+            InlineKeyboardButton('𝖲𝗍𝖺𝗍𝗎𝗌', callback_data='stats')
+             ]]))               
+
+@Client.on_message(filters.command(["about"]))
+async def about_msg(client, message):
+    await message.reply_photo(photo=random.choice(PICS),
+            text=script.ABOUT_TXT,
+            parse_mode='html',
+            disable_web_page_preview=True,
+            reply_markup = InlineKeyboardMarkup(
+            [[
+            InlineKeyboardButton('𝖲𝗈𝗎𝗋𝖼𝖾', url='https://github.com/shamilhabeebnelli/source-code'),
+            InlineKeyboardButton('𝖬𝗈𝗏𝗂𝖾𝗌', url='t.me/mwkott'),
+            InlineKeyboardButton('𝖢𝗅𝗈𝗌𝖾', callback_data='close_data')
+        ]]
+        )) 
 
 @Client.on_message(filters.command('channel') & filters.user(ADMINS))
 async def channel_info(bot, message):
