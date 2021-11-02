@@ -50,6 +50,15 @@ async def is_subscribed(bot, query):
 
     return False
 
+def getNames(persons, num, joiner=', ',):
+    nl = []
+    for i in range(0, min(num, len(persons))):
+        person = persons[i]
+        n = person.get('name', '')
+        nl.append(n)
+        
+    return joiner.join(nl)
+
 async def get_poster(query, bulk=False, id=False):
     if not id:
         # https://t.me/GetTGLink/4183
