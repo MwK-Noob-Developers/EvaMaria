@@ -81,6 +81,22 @@ async def get_poster(query, bulk=False, id=False):
     movie = imdb.get_movie(movieid)
     title = movie.get('title')
     genres = ", ".join(movie.get("genres")) if movie.get("genres") else None
+    runtime = movie.get("runtimes")[0] if movie.get("runtimes") else None
+    certificates = movie.get('certificates') 
+    certificate = 'Unknown'
+    if type(certificates) == list:
+        for item in certificates:
+            if 'United States' in item:
+                certificate = item.split(':')[1]
+                break
+    votes = movie.get('votes') if movie.get("votes") else "N/A"
+    akas = movie.get('akas') if movie.get("akas") else " "
+    years = movie.get('year')
+    producer = movie.get('producer') if movie.get("producer") else " "
+    language = movie.get("language") if movie.get("language") else " "
+    country = movie.get("country") if movie.get("country") else " "
+    director = getNames(movie.get("director"), 1) if movie.get("director") else " "
+    stars = getNames(movie.get("cast"), 3) if movie.get("cast") else " "
     rating = str(movie.get("rating"))
     if movie.get("original air date"):
         date = movie["original air date"]
@@ -89,13 +105,7 @@ async def get_poster(query, bulk=False, id=False):
     else:
         date = "N/A"
     poster = movie.get('full-size cover url')
-    plot = ""
-    if LONG_IMDB_DESCRIPTION:
-        plot = movie.get('plot')
-        if plot and len(plot) > 0:
-            plot = plot[0]
-    else:
-        plot = movie.get('plot outline')
+    plot = movie.get('plot outline')
     if plot and len(plot) > 800:
         plot = plot[0:800] + "..."
     return {
@@ -105,6 +115,16 @@ async def get_poster(query, bulk=False, id=False):
         'poster': poster,
         'plot': plot,
         'rating': rating,
+        'runtimes': runtime,
+        'certificate': certificate,
+        'director': director,
+        'cast': stars,
+        'country': country,
+        'years': years,
+        'language': language,
+        'producer': producer,
+        'akas': akas,
+        'votes': votes,
         'url':f'https://www.imdb.com/title/tt{movieid}'
 
     }
